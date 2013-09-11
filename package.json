@@ -5,17 +5,15 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/cappslock/generator-mixdown",
-  "bugs": "https://github.com/cappslock/generator-mixdown/issues",
-  "author": {
-    "name": "Eric Capps",
-    "email": "",
-    "url": "https://github.com/cappslock"
+  "homepage": "https://github.com/mixdown/generator-mixdown",
+  "bugs": {
+    "url": "https://github.com/mixdown/generator-mixdown/issues"
   },
+  "author": "Mixdown (https://github.com/mixdown)",
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/cappslock/generator-mixdown.git"
+    "url": "git://github.com/mixdown/generator-mixdown.git"
   },
   "scripts": {
     "test": "mocha"
@@ -37,5 +35,9 @@
     {
       "type": "MIT"
     }
-  ]
+  ],
+  "directories": {
+    "test": "test"
+  },
+  "license": "MIT"
 }
