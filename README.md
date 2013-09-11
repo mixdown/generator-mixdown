@@ -1,4 +1,4 @@
-# generator-mixdown [![Build Status](https://secure.travis-ci.org/cappslock/generator-mixdown.png?branch=master)](https://travis-ci.org/cappslock/generator-mixdown)
+# generator-mixdown [![Build Status](https://secure.travis-ci.org/mixdown/generator-mixdown.png?branch=master)](https://travis-ci.org/mixdown/generator-mixdown)
 
 A generator for [Yeoman](http://yeoman.io).
 
