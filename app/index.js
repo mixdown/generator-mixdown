@@ -22,7 +22,7 @@ MixdownGenerator.prototype.howdy = function () {
 MixdownGenerator.prototype.app = function app() {
   var callback = this.async();
 
-  this.remote('mixdown', 'boilerplate', function (err, remote) {
+  this.remote('mixdown', 'boilerplate', 'v1', function (err, remote) {
     remote.directory('./', './');
     callback();
   });
