@@ -25,5 +25,5 @@ MixdownGenerator.prototype.app = function app() {
   this.remote('mixdown', 'boilerplate', 'v1', function (err, remote) {
     remote.directory('./', './');
     callback();
-  });
+  }, true);
 };
