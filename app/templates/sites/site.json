@@ -1,0 +1,7 @@
+{
+  "vhosts": [
+    "localhost"
+  ],
+  "plugins": {
+  }
+} 

@@ -1,0 +1,24 @@
+{
+  "name": "package",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha -R spec -u tdd foundation/test/tests/*.js"
+  },
+  "main": "server",
+  "dependencies": {
+    "mixdown": "~1.2.0",
+    "mixdown-server": "~1.0.3",
+    "mixdown-router": "~1.2.3",
+    "mixdown-json": "~0.0.1",
+    "mixdown-error": "~0.0.1",
+    "mixdown-config-couchdb": "~0.0.3",
+    "browserify": "~3.18.0",
+    "mime": "1.2.11",
+    "broadway-handlebars": "~0.4.0",
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "overlay": true,
+  "plugins": {
+    "router": {
+      "options": {
+        "routes": {
+          "home": {
+            "method": "GET",
+            "name": "home",
+            "path": "/",
+            "description": "Home Page",
+            "handler": "home",
+            "params": {},
+            "enabled": true
+          }
+        }
+      }
+    }
+  }
+}

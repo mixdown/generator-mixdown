@@ -1,0 +1,39 @@
+{
+  "app": {
+    "plugins": {}
+  },
+  "logger": {
+    "level": "info",
+    "console":false,
+    "syslog": {
+      "host": "localhost",
+      "port": 514,
+      "facility": "local1"
+    }
+  },
+  "services": {
+    "module": "mixdown-config-couchdb",
+    "options": {
+      "host": "todo.iriscouch.com",
+      "port": 5984,
+      "databaseName": "todo",
+      "view": "sites/todo",
+      "extraConf": {
+      }
+    }
+  },
+  "main": {
+    "module": "mixdown-server",
+    "options": {
+      "listen": {
+        "port": 9999,
+        "type": "tcp",
+        "path": "/var/run/mixdown.sock"
+      },
+      "cluster": {
+        "on": true,
+        "workers": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "overlay": true,
+  "plugins": {
+    "view": {
+      "module": "./plugins/render.js",
+      "options": {
+        "optimize": false,
+        "development": true,
+        "view": {
+          "base": [
+            "./views"
+          ],
+          "ext": "html"
+        }
+      }
+    }
+  }
+}

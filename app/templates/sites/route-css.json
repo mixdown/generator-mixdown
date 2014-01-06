@@ -1,0 +1,27 @@
+{
+  "overlay": true,
+  "plugins": {
+    "router": {
+      "options": {
+        "routes": {
+          "css": {
+            "method": "GET",
+            "name": "css",
+            "path": "/css/:css_src",
+            "description": "CSS resources",
+            "handler": "css",
+            "params": {
+              "css_src": {
+                "kind": "rest",
+                "regex": "(\\w)",
+                "default": "",
+                "enabled": true
+              }
+            },
+            "enabled": true
+          }
+        }
+      }
+    }
+  }
+}

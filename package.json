@@ -1,0 +1,41 @@
+{
+  "name": "generator-mixdown",
+  "version": "0.0.0",
+  "description": "A generator for Yeoman",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/tommydudebreaux/generator-mixdown",
+  "bugs": "https://github.com/tommydudebreaux/generator-mixdown/issues",
+  "author": {
+    "name": "Tommy Messbauer",
+    "email": "",
+    "url": "https://github.com/tommydudebreaux"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tommydudebreaux/generator-mixdown.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.14.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}

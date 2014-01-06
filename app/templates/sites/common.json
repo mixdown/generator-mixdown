@@ -1,0 +1,14 @@
+{
+  "overlay": true,
+  "plugins": {
+    "json": {
+      "module": "mixdown-json",
+      "options": {
+        "jsonpEnabled": true
+      }
+    },
+    "error": {
+      "module": "mixdown-error"
+    }
+  }
+}

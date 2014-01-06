@@ -1,0 +1,10 @@
+{
+  "overlay": true,
+  "plugins": {
+    "router": {
+      "options": {
+        "routes": {}
+      }
+    }
+  }
+}

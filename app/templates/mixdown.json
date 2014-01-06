@@ -1,0 +1,33 @@
+{
+  "app": {
+    "plugins": {}
+  },
+  "logger": {
+    "level":"info",
+    "console": {
+      "color": true
+    }
+  },
+  "services": {
+    "module": "mixdown-config-filesystem",
+    "options": {
+      "paths": [
+        "./sites"
+      ]
+    }
+  },
+  "main": {
+    "module": "mixdown-server",
+    "options": {
+      "listen": {
+        "port": 8081,
+        "type": "tcp",
+        "path": "/var/run/mixdown.sock"
+      },
+      "cluster": {
+        "on": false,
+        "workers": 2
+      }
+    }
+  }
+}
