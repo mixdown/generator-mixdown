@@ -1,5 +1,17 @@
 {
   "name": "package",
   "version": "0.0.0",
-  "dependencies": {}
+  "dependencies": {
+    "mixdown": "~1.2.0",
+    "mixdown-server": "~1.0.3",
+    "mixdown-router": "~1.2.3",
+    "mixdown-json": "~1.2.3",
+    "mixdown-error": "~1.2.3",
+    "browserify": "~3.18.0",
+    "mime": "1.2.11",
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0"
+  }
 }

@@ -1,0 +1,16 @@
+{
+  "overlay": true,
+  "plugins": {
+    "router": {
+      "module": "./router/router.js",
+      "options": {
+        "timeout": 8000,
+        "routes": {
+          "home": {},
+          "css": {},
+          "js": {}
+          "asset": {},
+          "manifest": {}
+        }
+    }
+}
