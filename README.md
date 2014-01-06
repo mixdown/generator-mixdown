@@ -35,6 +35,50 @@ Finally, initiate the generator:
 $ yo mixdown
 ```
 
+## Mixdown Sub-Generator for create new http routes and controllers.
+
+Try this to expose a new http route to send the route table back to the user.  Then point your browser at
+
+[http://localhost:8081/manifest](http://localhost:8081/manifest)
+
+```
+Tommys-MacBook-Pro:000 tommy$ yo mixdown:route
+
+     _-----_
+    |       |
+    |--(o)--|   .--------------------------.
+   `---------´  |    Welcome to Yeoman,    |
+    ( _´U`_ )   |   ladies and gentlemen!  |
+    /___A___\   '__________________________'
+     |  ~  |
+   __'.___.'__
+ ´   `  |° ´ Y `
+
+[?] What would you like to name this route? manifest
+[?] What does this route do in plain language? Gets the route table for the app
+[?] What http verb would you like to use for this route? GET
+[?] Please type the path for the route. /manifest
+   create sites/route-manifest.json
+ conflict router/router.js
+[?] Overwrite router/router.js? overwrite
+    force router/router.js
+ conflict router/controllers/manifest.js
+[?] Overwrite router/controllers/manifest.js? do not overwrite
+     skip router/controllers/manifest.js
+
+
+Tommys-MacBook-Pro:000 tommy$ npm start
+
+> 000@0.0.0 start /junk/000
+> node server.js
+
+17:31:34 000.info: External Config initialized: { options: { app: { plugins: undefined }, paths: [ './sites' ] } }
+17:31:34 000.info: Server started successfully. { address: '0.0.0.0', family: 'IPv4', port: 8081 } [ { vhosts: [ 'localhost' ], id: 'asdfdsagdas' } ]
+17:31:34 000.info: 000 version: 0.0.0
+
+
+```
+
 ### Getting To Know Yeoman
 
 Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
