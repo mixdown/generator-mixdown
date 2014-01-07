@@ -59,6 +59,27 @@ RouteGenerator.prototype.askFor = function askFor() {
     default: '/foo/:bar/:baz'
   });
 
+  prompts.push({
+    type: "select",
+    name: "routeControllerType",
+    message: 'What type of content will be sent with this route (html, api, default) ?',
+    choices: [
+      {
+        name: "html",
+        value: "html"
+      },
+      {
+        name: "api",
+        value: "api"
+      },
+      {
+        name: "default",
+        value: "default"
+      }
+    ],
+    default: "default"
+  });
+
   this.prompt(prompts, function (props) {
     this._.extend(this, props);
     this.routeName = this._.dasherize(this.routeName);
@@ -109,6 +130,6 @@ RouteGenerator.prototype.files = function files() {
   this.write('router/router.js', newRouter);
 
   // copy the new controller.
-  this.copy('controller.js', 'router/controllers/' + this.routeName + '.js');
+  this.copy('controller-' + this.routeControllerType + '.js', 'router/controllers/' + this.routeName + '.js');
 
 };
