@@ -5,10 +5,11 @@
   "logger": {
     "level": "info",
     "console":false,
+    "name": "todo",
     "syslog": {
       "host": "localhost",
       "port": 514,
-      "facility": "local1"
+      "facility": "17"
     }
   },
   "services": {

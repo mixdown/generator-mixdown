@@ -4,15 +4,15 @@
     "router": {
       "options": {
         "routes": {
-          "asset": {
+          "img": {
             "method": "GET",
-            "name": "asset",
-            "path": "/asset",
-            "description": "Serves any file-based asset.  Put the path on the querystring.",
-            "handler": "asset",
+            "name": "img",
+            "path": "/img/?:img_src",
+            "description": "Serves images.",
+            "handler": "img",
             "params": {
-              "asset_src": {
-                "kind": "query",
+              "img_src": {
+                "kind": "rest",
                 "regex": "(.*)",
                 "default": "",
                 "enabled": true

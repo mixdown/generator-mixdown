@@ -13,7 +13,7 @@
             "params": {
               "css_src": {
                 "kind": "rest",
-                "regex": "(\\w)",
+                "regex": "(.*\\.css)",
                 "default": "",
                 "enabled": true
               }

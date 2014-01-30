@@ -1,0 +1,20 @@
+{
+  "overlay": true,
+  "plugins": {
+    "router": {
+      "options": {
+        "routes": {
+          "manifest": {
+            "method": "GET",
+            "name": "manifest",
+            "path": "/manifest",
+            "description": "Returns the routes for the website",
+            "handler": "manifest",
+            "params": {},
+            "enabled": true
+          }
+        }
+      }
+    }
+  }
+}

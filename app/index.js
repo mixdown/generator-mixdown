@@ -84,9 +84,11 @@ MixdownGenerator.prototype.app = function app() {
   this.copy('sites/common.json', 'sites/common.json');
   this.copy('sites/router.json', 'sites/router.json');
   this.copy('sites/route-asset.json', 'sites/route-asset.json');
+  this.copy('sites/route-img.json', 'sites/route-img.json');
   this.copy('sites/route-css.json', 'sites/route-css.json');
   this.copy('sites/route-js.json', 'sites/route-js.json');
   this.copy('sites/route-home.json', 'sites/route-home.json');
+  this.copy('sites/route-manifest.json', 'sites/route-manifest.json');
   this.copy('sites/render.json', 'sites/render.json');
   this.copy('server.js', 'server.js');
 
@@ -99,6 +101,9 @@ MixdownGenerator.prototype.app = function app() {
 
   this.mkdir('views');
   this.directory('views', 'views');
+
+  this.mkdir('public');
+  this.directory('public', 'public');
 
   var mixdown = require(__dirname + "/templates/mixdown.json");
   mixdown.main.options.listen.port = parseInt(this.localPort);

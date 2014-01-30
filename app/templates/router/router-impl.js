@@ -1,5 +1,7 @@
 var util = require('util');
 var MixdownRouter = require('mixdown-router');
+var _ = require('lodash');
+var packageJSON = require('../package.json');
 
 // Search router impl.
 var Router = function() {
@@ -11,7 +13,7 @@ var Router = function() {
 
   var _attach = this.attach;
   var cachebusterRoutes = ['js', 'css', 'asset'];
-  var cachebusterVersion = 'cachebuster-not-set';
+  var cachebusterVersion = packageJSON.version;
   var app;
 
   // Added server version as a cachebuster.
@@ -25,28 +27,35 @@ var Router = function() {
     this.router.url = function(route, params) {
       var u = _url.call(this, route, params);
 
-
       if (cachebusterRoutes.indexOf(route) >= 0) {
         u.query = u.query || {};
         u.query.v = cachebusterVersion;
       }
 
       return u;
-    }
+    };
+
+    // implements router logging.  Leave this commented out unless debugging a route.
+    // var _create = this.router.create;
+
+    // this.router.create = function() {
+    //   var r = _create.apply(this, arguments);
+
+    //   r.on('evaluate', function(trace) {
+    //     logger.debug({
+    //       options: trace.options,
+    //       matched: trace.matched,
+    //       httpContext: _.omit(trace.httpContext, 'request', 'response')
+    //     });
+    //   });
+
+    //   return r;
+    // };
 
   };
 
   var _init = this.init;
   this.init = function(done) {
-
-    if (app.plugins.cachebuster && app.plugins.cachebuster.routes && app.plugins.cachebuster.routes.length) {
-      cachebusterRoutes = cachebusterRoutes.concat(app.plugins.cachebuster.routes);
-    }
-
-    if (app.plugins.cachebuster) {
-      cachebusterVersion = app.plugins.cachebuster.version;
-    }
-
 
     if (typeof(_init) === 'function') {
       _init.call(this, done);

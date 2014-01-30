@@ -13,7 +13,7 @@
             "params": {
               "js_src": {
                 "kind": "rest",
-                "regex": "(\\w)",
+                "regex": "(.*\\.js)",
                 "default": "",
                 "enabled": true
               }

@@ -4,19 +4,25 @@ var mime = require('mime');
 var _ = require('lodash');
 
 module.exports = function(httpContext) {
+  var app = httpContext.app;
   var res = httpContext.response;
-  var filepath = path.join(process.cwd(), httpContext.url.pathname);  // map the url path to the file system.
-  var headers = {};
+
+  var filepath =
+    httpContext.route.name === 'asset'
+    ? path.join(process.cwd(), 'public', httpContext.url.query.asset_src)
+    : path.join(process.cwd(), 'public', httpContext.url.pathname);  // map the url path to the file system.
+
+  // This adds cache control headers for non-dev resources.
+  var headers = process.env.MIXDOWN_ENV ? { "Cache-Control": "max-age=29030400, public" } : {};
 
   fs.exists(filepath, function(exists) {
 
     if (exists) {
       res.writeHead(200, _.extend({ 'Content-Type': mime.lookup(filepath) }, headers));
-      fs.createReadStream(filepath, res);
+      fs.createReadStream(filepath).pipe(res);
     }
     else {
-      res.writeHead(404, _.extend({ 'Content-Type': 'text/plain' }, headers));
-      res.end('404 Not Found');
+      app.plugins.error.notFound(new Error('File does not exist: ' + filepath), res);
     }
 
   });

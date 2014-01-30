@@ -5,7 +5,7 @@ module.exports = function(httpContext) {
   app.plugins.render('home', httpContext.url, function(err, html) {
 
     if (err) {
-      app.plugins.error.notfound(err, res);
+      app.plugins.error.notFound(err, res);
       return;
     }
 

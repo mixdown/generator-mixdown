@@ -119,7 +119,7 @@ RouteGenerator.prototype.files = function files() {
 
     this.existingRouter,
     '\nRouter.prototype.',
-    this.routeName,
+    this._.underscored(this.routeName),
     ' = require(\'./controllers/',
     this.routeName,
     '.js\');\n'

@@ -13,10 +13,11 @@
     "mixdown-json": "~0.0.1",
     "mixdown-error": "~0.0.1",
     "mixdown-config-couchdb": "~0.0.3",
-    "browserify": "~3.18.0",
+    "browserify": "~3.24.8",
     "mime": "1.2.11",
     "broadway-handlebars": "~0.4.0",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "uglifyify": "~1.2.1"
   },
   "devDependencies": {
     "mocha": "~1.14.0"
