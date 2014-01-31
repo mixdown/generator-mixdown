@@ -14,7 +14,7 @@ module.exports = function(httpContext) {
   app.plugins.render(templateName, viewModel, function(err, html) {
 
     if (err) {
-      app.plugins.error.notfound(err, res);
+      app.plugins.error.notFound(err, res);
       return;
     }
 
