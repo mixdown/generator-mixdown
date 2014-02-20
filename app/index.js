@@ -59,9 +59,16 @@ MixdownGenerator.prototype.askFor = function askFor() {
 MixdownGenerator.prototype.app = function app() {
 
   var packageJSON = require(path.join(__dirname, '../app/templates/_package.json'));
+  var oldPackageJSON = fs.existsSync(path.join(process.cwd(),'/package.json')) 
+                          ? require(path.join(process.cwd(),'/package.json'))
+                          : {};
 
   packageJSON.name = this.packageName;
   packageJSON.description = this.packageDescription;
+
+  this._.defaults(packageJSON.dependencies, oldPackageJSON.dependencies);
+  this._.defaults(packageJSON.devDependencies, oldPackageJSON.devDependencies);
+  this._.defaults(packageJSON.scripts, oldPackageJSON.scripts);
 
   // write package.json
   this.write('package.json', JSON.stringify(packageJSON, null, 2));
@@ -111,10 +118,11 @@ MixdownGenerator.prototype.app = function app() {
   this.write('mixdown.json',JSON.stringify(mixdown,null,2));
 
   // copy gitignore if it doesn't exisit
-  var gitignoreExists = fs.existsSync(path.join(process.cwd(),'/.gitignore'));
-  if(!gitignoreExists) {
-    this.copy('_gitignore', '.gitignore');
-  }
+  var pathGitIgnore = path.join(process.cwd(),'/.gitignore');
+  var gitignore = fs.existsSync(pathGitIgnore) ? fs.readFileSync(pathGitIgnore) : '';
+  gitignore += '\n' + fs.readFileSync(path.join(__dirname, '../app/templates/_gitignore'));
+  this.write('.gitignore', gitignore);
+
 };
 
 MixdownGenerator.prototype.projectfiles = function projectfiles() {

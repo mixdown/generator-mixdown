@@ -98,8 +98,7 @@ RouteGenerator.prototype.files = function files() {
   route.path = this.routePath;
   route.method = this.routeVerb;
   route.description = this.routeDescription;
-  route.name = this.routeName;
-  route.handler = this.routeName;
+  route.name = route.handler = this._.underscored(this.routeName);
 
   // map params
   this._.each(this.routePath.split('/'), function(restParam) {
@@ -110,7 +109,7 @@ RouteGenerator.prototype.files = function files() {
 
 
   var overlay = require(path.join(this.sourceRoot(), 'overlay.json'));
-  overlay.plugins.router.options.routes[this.routeName] = route;
+  overlay.plugins.router.options.routes[this._.underscored(this.routeName)] = route;
 
   this.write('sites/route-' + this.routeName + '.json', JSON.stringify(overlay, null, 2));
 
