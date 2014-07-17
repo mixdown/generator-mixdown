@@ -7,19 +7,19 @@
   },
   "main": "server",
   "dependencies": {
-    "mixdown": "~1.2.0",
-    "mixdown-server": "~2.0.1",
-    "mixdown-router": "~3.0.2",
-    "mixdown-json": "~0.0.2",
-    "mixdown-error": "~0.0.2",
-    "mixdown-config-couchdb": "~0.0.3",
-    "browserify": "~3.44.2",
+    "browserify": "^4.2.1",
+    "grunt": "^0.4.5",
+    "lodash": "2.4.1",
     "mime": "1.2.11",
-    "broadway-handlebars": "~0.4.0",
-    "lodash": "~2.4.1",
-    "uglifyify": "~1.2.1"
+    "mixdown": "mixdown/mixdown",
+    "mixdown-app": "^3.0.4",
+    "mixdown-error": "mixdown/mixdown-error",
+    "mixdown-handlebars": "*",
+    "mixdown-json": "mixdown/mixdown-json",
+    "mixdown-router": "mixdown/router#3x",
+    "uglifyify": "^2.5.0"
   },
   "devDependencies": {
-    "mocha": "~1.14.0"
+    "mocha": "^1.20.1"
   }
 }

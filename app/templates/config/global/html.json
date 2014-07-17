@@ -1,7 +1,7 @@
 {
   "overlay": true,
   "plugins": {
-    "view": {
+    "html": {
       "module": "./plugins/render.js",
       "options": {
         "optimize": false,

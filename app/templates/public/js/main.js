@@ -1,3 +1,5 @@
-var _ = require('lodash');
+var app = window.mixdown = require('./app.js');
 
-alert('hello');
+app.setup(function(err) {
+  app.router.listen();
+});

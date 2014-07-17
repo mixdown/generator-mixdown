@@ -3,7 +3,7 @@
     "plugins": {}
   },
   "logger": {
-    "level":"info",
+    "level": "info",
     "console": {
       "color": true
     }
@@ -12,7 +12,8 @@
     "module": "mixdown-config-filesystem",
     "options": {
       "paths": [
-        "./sites"
+        "./config/global",
+        "./config/sites"
       ]
     }
   },

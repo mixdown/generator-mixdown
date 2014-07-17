@@ -7,8 +7,10 @@ var yeoman = require('yeoman-generator');
 var MixdownGenerator = module.exports = function MixdownGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
-  this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
+  this.on('end', function() {
+    this.installDependencies({
+      skipInstall: options['skip-install']
+    });
   });
 };
 
@@ -41,8 +43,8 @@ MixdownGenerator.prototype.askFor = function askFor() {
   });
 
 
-  if(prompts.length !== 0) {
-    this.prompt(prompts, function (props) {
+  if (prompts.length !== 0) {
+    this.prompt(prompts, function(props) {
       this.packageName = props.packageName ? props.packageName.replace(/\s/g, '-') : null;
       this.packageDescription = props.packageDescription;
       this.siteNames = props.siteNames;
@@ -50,8 +52,7 @@ MixdownGenerator.prototype.askFor = function askFor() {
 
       cb();
     }.bind(this));
-  }
-  else {
+  } else {
     cb();
   }
 };
@@ -59,9 +60,7 @@ MixdownGenerator.prototype.askFor = function askFor() {
 MixdownGenerator.prototype.app = function app() {
 
   var packageJSON = require(path.join(__dirname, '../app/templates/_package.json'));
-  var oldPackageJSON = fs.existsSync(path.join(process.cwd(),'/package.json')) 
-                          ? require(path.join(process.cwd(),'/package.json'))
-                          : {};
+  var oldPackageJSON = fs.existsSync(path.join(process.cwd(), '/package.json')) ? require(path.join(process.cwd(), '/package.json')) : {};
 
   packageJSON.name = this.packageName;
   packageJSON.description = this.packageDescription;
@@ -73,10 +72,10 @@ MixdownGenerator.prototype.app = function app() {
   // write package.json
   this.write('package.json', JSON.stringify(packageJSON, null, 2));
 
-  this.mkdir('./sites');
+  this.mkdir('./config/sites');
 
   var sites = this.siteNames ? this.siteNames.split(',') : [];
-  var siteJsonTemplate = require(path.join(__dirname, '../app/templates/' + './sites/' + 'site.json'));
+  var siteJsonTemplate = require(path.join(__dirname, '../app/templates/' + './config/sites/' + 'site.json'));
   var self = this;
 
   sites.forEach(function(site) {
@@ -84,24 +83,18 @@ MixdownGenerator.prototype.app = function app() {
     site = self._.dasherize(site);
     siteJson.id = site;
 
-    self.write('./sites/' + site + '.json', JSON.stringify(siteJson, null, 2));
+    self.write('./config/sites/' + site + '.json', JSON.stringify(siteJson, null, 2));
   });
 
+  this.mkdir('config/global');
+  this.directory('config/global', 'config/global');
 
-  this.copy('sites/common.json', 'sites/common.json');
-  this.copy('sites/router.json', 'sites/router.json');
-  this.copy('sites/route-asset.json', 'sites/route-asset.json');
-  this.copy('sites/route-img.json', 'sites/route-img.json');
-  this.copy('sites/route-css.json', 'sites/route-css.json');
-  this.copy('sites/route-js.json', 'sites/route-js.json');
-  this.copy('sites/route-home.json', 'sites/route-home.json');
-  this.copy('sites/route-manifest.json', 'sites/route-manifest.json');
-  this.copy('sites/render.json', 'sites/render.json');
   this.copy('server.js', 'server.js');
+  this.copy('Gruntfile.js', 'Gruntfile.js');
 
   // if the location router has not been generated, then generate a boilerplate.
-  this.mkdir('router');
-  this.directory('router', 'router');
+  this.mkdir('controllers');
+  this.directory('controllers', 'controllers');
 
   this.mkdir('plugins');
   this.directory('plugins', 'plugins');
@@ -115,10 +108,10 @@ MixdownGenerator.prototype.app = function app() {
   var mixdown = require(__dirname + "/templates/mixdown.json");
   mixdown.main.options.listen.port = parseInt(this.localPort);
   mixdown.logger.name = this.packageName;
-  this.write('mixdown.json',JSON.stringify(mixdown,null,2));
+  this.write('mixdown.json', JSON.stringify(mixdown, null, 2));
 
   // copy gitignore if it doesn't exisit
-  var pathGitIgnore = path.join(process.cwd(),'/.gitignore');
+  var pathGitIgnore = path.join(process.cwd(), '/.gitignore');
   var gitignore = fs.existsSync(pathGitIgnore) ? fs.readFileSync(pathGitIgnore) : '';
   gitignore += '\n' + fs.readFileSync(path.join(__dirname, '../app/templates/_gitignore'));
   this.write('.gitignore', gitignore);
