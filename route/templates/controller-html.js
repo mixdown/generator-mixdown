@@ -10,11 +10,11 @@ module.exports = {
 
     // TODO: set the view model with the data for this api.
     var vm = {
-
+      params: httpContext.params
     };
 
     app.html.send({
-      view: 'todo',
+      view: 'home',
       data: vm,
       httpContext: httpContext,
       headers: {}
