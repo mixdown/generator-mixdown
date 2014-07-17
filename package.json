@@ -1,6 +1,6 @@
 {
   "name": "generator-mixdown",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A generator for Yeoman",
   "keywords": [
     "yeoman-generator"
@@ -33,7 +33,9 @@
     "node": ">=0.8.0",
     "npm": ">=1.2.10"
   },
-  "licenses": [{
-    "type": "MIT"
-  }]
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
 }
