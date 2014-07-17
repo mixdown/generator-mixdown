@@ -1,13 +1,38 @@
-module.exports = function(httpContext) {
-  var app = httpContext.app;
-  var res = httpContext.response;
-  var req = httpContext.request;
+module.exports = {
+  path: '/api/demo',
+  description: 'Demo api route..',
+  params: {},
 
-  // TODO: set the view model with the data for this api.
-  var viewModel = {
+  get: function(httpContext) {
+    var app = httpContext.app;
+    var res = httpContext.response;
+    var req = httpContext.request;
 
-  };
+    // TODO: set the view model with the data for this api.
+    var vm = {
+      hello: 'world',
+      model: httpContext.params
+    };
 
-  app.plugins.json(viewModel, res);
+    app.json.send(vm, res);
+  },
+
+  delete: function(httpContext) {
+    httpContext.app.json.send({
+      error: 'Not Implemented'
+    }, httpContext.response);
+  },
+
+  post: function(httpContext) {
+    httpContext.app.json.send({
+      error: 'Not Implemented'
+    }, httpContext.response);
+  },
+
+  put: function(httpContext) {
+    httpContext.app.json.send({
+      error: 'Not Implemented'
+    }, httpContext.response);
+  }
 
 };

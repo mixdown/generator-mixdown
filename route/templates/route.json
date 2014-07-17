@@ -1,9 +1,0 @@
-{
-  "method": "GET",
-  "name": "undefined",
-  "path": "/foo/:bar/:baz",
-  "description": "",
-  "handler": "undefined",
-  "params": {},
-  "enabled": true
-}

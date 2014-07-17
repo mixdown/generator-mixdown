@@ -21,17 +21,6 @@ RouteGenerator.prototype.askFor = function askFor() {
   // have Yeoman greet the user.
   console.log(this.yeoman);
 
-  var getExistingConfig = function(name) {
-    try{
-      return require(name);
-    }
-    catch(e){
-      return false;
-    }
-  };
-
-  this.existingRouter = this.readFileAsString(path.join(process.cwd(), 'router/router.js'));
-
   //prompt for undetected values unless the supress prompts flag is on,
   //in that case throw an exception to fail the generator, and therefore fail the build
   var prompts = [];
@@ -48,9 +37,31 @@ RouteGenerator.prototype.askFor = function askFor() {
   });
 
   prompts.push({
-    name: 'routeVerb',
-    message: 'What http verb would you like to use for this route?',
-    default: 'GET'
+    type: 'confirm',
+    name: 'routeGet',
+    message: 'Does this route suppot http GET?',
+    default: true
+  });
+
+  prompts.push({
+    type: 'confirm',
+    name: 'routePost',
+    message: 'Does this route suppot http POST?',
+    default: false
+  });
+
+  prompts.push({
+    type: 'confirm',
+    name: 'routePut',
+    message: 'Does this route suppot http PUT?',
+    default: false
+  });
+
+  prompts.push({
+    type: 'confirm',
+    name: 'routeDelete',
+    message: 'Does this route suppot http DELETE?',
+    default: false
   });
 
   prompts.push({
@@ -60,75 +71,127 @@ RouteGenerator.prototype.askFor = function askFor() {
   });
 
   prompts.push({
-    type: "select",
-    name: "routeControllerType",
-    message: 'What type of content will be sent with this route (html, api, default) ?',
-    choices: [
-      {
-        name: "html",
-        value: "html"
-      },
-      {
-        name: "api",
-        value: "api"
-      },
-      {
-        name: "default",
-        value: "default"
-      }
-    ],
-    default: "default"
+    name: 'routeQuery',
+    message: 'Please list (comma separated) optional (query params) for the route. (ex: page_number, page_size would generate querystring scaffold for paging)',
+    default: ''
   });
 
-  this.prompt(prompts, function (props) {
+  prompts.push({
+    type: 'confirm',
+    name: 'routeBrowser',
+    message: 'Will this route run in the browser in single page app mode?',
+    default: false
+  });
+
+  prompts.push({
+    type: "select",
+    name: "routeControllerType",
+    message: 'What type of content will be sent with this route (html, api) ?',
+    choices: [{
+      name: "html",
+      value: "html"
+    }, {
+      name: "api",
+      value: "api"
+    }],
+    default: "html"
+  });
+
+  var self = this;
+
+  this.prompt(prompts, function(props) {
     this._.extend(this, props);
     this.routeName = this._.dasherize(this.routeName);
-    cb();
+
+    self.prompt([{
+      name: 'routeFilePath',
+      message: 'Where should this controller be written to your project?',
+      default: this.routeControllerType === 'api' ? 'controllers/api' : 'controllers/pages'
+    }], function(fp_props) {
+      self._.extend(self, fp_props);
+      cb();
+    });
+
   }.bind(this));
 
 };
 
 RouteGenerator.prototype.files = function files() {
 
-  // write the new route table entry
-  var route = require(path.join(this.sourceRoot(), 'route.json'));
-  var restTemplate = require(path.join(this.sourceRoot(), 'rest.json'));
+  // load correct template
+  var new_route = require(path.join(this.sourceRoot(), 'controller-' + this.routeControllerType + '.js'));
+
+  // set name/description
+  new_route.path = this.routePath;
+  new_route.description = this.routeDescription;
+
+  // remove un-supported http verbs
+  if (!this.routeGet) {
+    delete new_route.get;
+  }
+
+  if (!this.routePut) {
+    delete new_route.put;
+  }
+
+  if (!this.routeDelete) {
+    delete new_route.delete;
+  }
+
+  if (!this.routePost) {
+    delete new_route.post;
+  }
+
   var self = this;
+  var route_name = this._.underscored(this.routeName).trim();
+  var param_template = require(path.join(this.sourceRoot(), 'param.json'));
+  var rx_param_test = /^\??:/;
 
-  route.path = this.routePath;
-  route.method = this.routeVerb;
-  route.description = this.routeDescription;
-  route.name = route.handler = this._.underscored(this.routeName);
+  // add query params to list
+  this._.each(this.routeQuery.split(','), function(queryParam) {
 
-  // map params
+    var new_param = self._.clone(param_template);
+    new_param.kind = 'query';
+    new_route.params[queryParam.trim()] = new_param;
+  });
+
+  // add rest params to list
   this._.each(this.routePath.split('/'), function(restParam) {
-    if (restParam[0] === ':') {
-      route.params[restParam.substring(1)] = self._.clone(restTemplate);
+
+    if (rx_param_test.test(restParam)) {
+
+      var new_param = self._.clone(param_template);
+      new_param.kind = 'rest';
+      new_route.params[restParam.replace(rx_param_test, '')] = new_param;
     }
   });
 
+  // write new_route to file system
+  var dir_path = path.join(this.routeFilePath, route_name);
+  var route_path = path.join(dir_path, 'route.js');
+  var browser_path = path.join(dir_path, 'browser_handler.js');
+  var str_buf = [];
 
-  var overlay = require(path.join(this.sourceRoot(), 'overlay.json'));
-  overlay.plugins.router.options.routes[this._.underscored(this.routeName)] = route;
+  this._.each(new_route, function(prop, name) {
+    if (typeof(prop) === 'function') {
+      str_buf.push(name + ': ' + prop.toString());
+    } else if (typeof(prop) === 'object') {
+      str_buf.push(name + ': ' + JSON.stringify(prop, null, 2));
+    } else if (typeof(prop) === 'string') {
+      str_buf.push(name + ': "' + prop.toString() + '"');
+    } else {
+      str_buf.push(name + ': ' + prop.toString());
+    }
+  });
 
-  this.write('sites/route-' + this.routeName + '.json', JSON.stringify(overlay, null, 2));
+  var src = 'module.exports = {\n  ' + str_buf.join(',\n  ') + '\n};';
 
-  // generate the new method on the router for the handler.
-  var newRouter = [
+  // write the new route and handler source
+  this.write(route_path, src);
 
-    this.existingRouter,
-    '\nRouter.prototype.',
-    this._.underscored(this.routeName),
-    ' = require(\'./controllers/',
-    this.routeName,
-    '.js\');\n'
-
-  ].join('');
-
-  // write the new route handler source code.
-  this.write('router/router.js', newRouter);
-
-  // copy the new controller.
-  this.copy('controller-' + this.routeControllerType + '.js', 'router/controllers/' + this.routeName + '.js');
+  // if this supports browser execution, then write the browser_handler.
+  if (this.routeBrowser) {
+    this.copy('browser_handler.js', browser_path);
+  }
 
 };

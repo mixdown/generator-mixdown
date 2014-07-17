@@ -1,6 +1,0 @@
-{
-  "kind": "rest",
-  "regex": "(\\w)",
-  "default": "",
-  "enabled": true
-}
