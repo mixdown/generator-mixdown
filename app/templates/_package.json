@@ -2,7 +2,7 @@
   "name": "package",
   "version": "0.0.0",
   "scripts": {
-    "start": "node server.js",
+    "start": "grunt && node server.js",
     "test": "mocha -R spec -u tdd foundation/test/tests/*.js"
   },
   "main": "server",
