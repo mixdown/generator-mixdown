@@ -1,14 +1,19 @@
 module.exports = {
   path: "/",
   description: "Home Page",
-  params: {},
+  params: {
+    "id": {
+      "kind": "query",
+      "regex": /\w+/
+    }
+  },
 
   get: function(httpContext) {
     var app = httpContext.app;
 
     app.html.send({
       view: 'home',
-      data: httpContext.url,
+      data: httpContext,
       httpContext: httpContext,
       headers: {
         foo: 'bar'

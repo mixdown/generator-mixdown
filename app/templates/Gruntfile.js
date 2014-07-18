@@ -16,10 +16,22 @@ module.exports = function(grunt) {
           add_namespace: false
         }]
       }
+    },
+    'mixdown-handlebars': {
+      options: {
+        dest: './public/js',
+        views: {
+          base: [
+            "./views"
+          ],
+          ext: "html"
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('mixdown-router');
+  grunt.loadNpmTasks('mixdown-handlebars');
 
-  grunt.registerTask('default', ['mixdown-router']);
+  grunt.registerTask('default', ['mixdown-router', 'mixdown-handlebars']);
 };
