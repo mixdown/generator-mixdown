@@ -149,10 +149,12 @@ RouteGenerator.prototype.files = function files() {
 
   // add query params to list
   this._.each(this.routeQuery.split(','), function(queryParam) {
-
-    var new_param = self._.clone(param_template);
-    new_param.kind = 'query';
-    new_route.params[queryParam.trim()] = new_param;
+    queryParam = queryParam.trim();
+    if (queryParam) {
+      var new_param = self._.clone(param_template);
+      new_param.kind = 'query';
+      new_route.params[queryParam] = new_param;
+    }
   });
 
   // add rest params to list
