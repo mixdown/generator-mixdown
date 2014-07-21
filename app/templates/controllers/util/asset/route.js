@@ -32,7 +32,7 @@ module.exports = {
         }, headers));
         fs.createReadStream(filepath).pipe(res);
       } else {
-        app.plugins.error.notFound(new Error('File does not exist: ' + filepath), res);
+        app.error.notFound(new Error('File does not exist: ' + filepath), res);
       }
 
     });

@@ -5,7 +5,7 @@ module.exports = {
 
   get: function(httpContext) {
     var app = httpContext.app;
-    app.plugins.json.send({
+    app.json.send({
       hello: 'world'
     }, httpContext.response);
   }
