@@ -17,7 +17,7 @@ module.exports = {
     var res = httpContext.response;
 
     var filepath =
-      httpContext.route.name === 'asset' ? path.join(process.cwd(), 'public', httpContext.url.query.asset_src) : path.join(process.cwd(), 'public', httpContext.url.pathname); // map the url path to the file system.
+      httpContext.route === 'asset' ? path.join(process.cwd(), 'public', httpContext.params.asset_src) : path.join(process.cwd(), 'public', httpContext.url.pathname); // map the url path to the file system.
 
     // This adds cache control headers for non-dev resources.
     var headers = process.env.MIXDOWN_ENV ? {

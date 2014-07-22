@@ -65,7 +65,7 @@ module.exports = {
         });
 
       } else {
-        app.error.notFound('404 Not Found - ' + entrypoint, res);
+        app.error.notFound('404 Not Found - ' + entrypoint, httpContext);
       }
 
     });
